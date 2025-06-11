@@ -77,9 +77,9 @@ async def read_sub_workgraph(id: int, path: str):
             "outputs": {},
         }
 
-        parent_workgraphs = [[node.process_label, id]] + segments
+        parent_workflows = [[node.process_label, id]] + segments
         content["summary"] = summary
-        content["parent_workgraphs"] = parent_workgraphs
+        content["parent_workflows"] = parent_workflows
         content["processes_info"] = {}
         return content
     except KeyError as e:
@@ -103,10 +103,10 @@ async def read_workgraph(id: int):
             return
         summary = get_node_summary(node)
 
-        parent_workgraphs = get_parent_processes(id)
-        parent_workgraphs.reverse()
+        parent_workflows = get_parent_processes(id)
+        parent_workflows.reverse()
         content["summary"] = summary
-        content["parent_workgraphs"] = parent_workgraphs
+        content["parent_workflows"] = parent_workflows
         content["processes_info"] = {}
         return content
     except KeyError as e:
