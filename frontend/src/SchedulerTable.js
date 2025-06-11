@@ -96,7 +96,7 @@ function SchedulerTable() {
   const navigate = useNavigate();
 
   const fetchSchedulers = () => {
-    fetch('http://localhost:8000/plugins/workgraph/api/scheduler/list')
+    fetch('/plugins/scheduler/api/scheduler/list')
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch scheduler status.');
@@ -118,7 +118,7 @@ function SchedulerTable() {
   };
 
   const handleStart = (name) => {
-    fetch('http://localhost:8000/plugins/workgraph/api/scheduler/start', {
+    fetch('/plugins/scheduler/api/scheduler/start', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -141,7 +141,7 @@ function SchedulerTable() {
   };
 
   const handleStop = (name) => {
-    fetch(`http://localhost:8000/plugins/workgraph/api/scheduler/stop?name=${name}`, {
+    fetch(`/plugins/scheduler/api/scheduler/stop?name=${name}`, {
       method: 'POST'
     })
       .then(response => {
@@ -164,7 +164,7 @@ function SchedulerTable() {
       return; // User canceled
     }
 
-    fetch('http://localhost:8000/plugins/workgraph/api/scheduler/delete', {
+    fetch('/plugins/scheduler/api/scheduler/delete', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name }),
@@ -194,7 +194,7 @@ function SchedulerTable() {
 
   // Called when user clicks "Add" in the modal
   const handleAddScheduler = (data) => {
-    fetch('http://localhost:8000/plugins/workgraph/api/scheduler/add', {
+    fetch('/plugins/scheduler/api/scheduler/add', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),

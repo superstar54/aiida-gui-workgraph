@@ -196,7 +196,7 @@ export default function SchedulerDetail({NodeTable}) {
 
   // Fetch scheduler detail
   const fetchScheduler = () => {
-    fetch(`http://localhost:8000/plugins/workgraph/api/scheduler/data/${name}`)
+    fetch(`/plugins/scheduler/api/scheduler/data/${name}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Failed to fetch scheduler ${name} data.`);
@@ -237,7 +237,7 @@ export default function SchedulerDetail({NodeTable}) {
 
   // Fetch scheduler detail
   const fetchDaemon = () => {
-    fetch(`http://localhost:8000/plugins/workgraph/api/scheduler/status/${name}`)
+    fetch(`/plugins/scheduler/api/scheduler/status/${name}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Failed to fetch scheduler ${name} data.`);
@@ -276,7 +276,7 @@ export default function SchedulerDetail({NodeTable}) {
    *    START / STOP HANDLERS
    * ------------------------------ */
   const handleStart = () => {
-    fetch('http://localhost:8000/plugins/workgraph/api/scheduler/start', {
+    fetch('/plugins/scheduler/api/scheduler/start', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -301,7 +301,7 @@ export default function SchedulerDetail({NodeTable}) {
   };
 
   const handleStop = () => {
-    fetch(`http://localhost:8000/plugins/workgraph/api/scheduler/stop?name=${name}`, {
+    fetch(`/plugins/scheduler/api/scheduler/stop?name=${name}`, {
       method: 'POST',
     })
       .then((response) => {
@@ -321,7 +321,7 @@ export default function SchedulerDetail({NodeTable}) {
    *    UPDATE LIMITS HANDLERS
    * ------------------------------ */
   const updateMaxCalcjobs = () => {
-    fetch('http://localhost:8000/plugins/workgraph/api/scheduler/set_max_calcjobs', {
+    fetch('/plugins/scheduler/api/scheduler/set_max_calcjobs', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -341,7 +341,7 @@ export default function SchedulerDetail({NodeTable}) {
   };
 
   const updateMaxWorkflows = () => {
-    fetch('http://localhost:8000/plugins/workgraph/api/scheduler/set_max_workflows', {
+    fetch('/plugins/scheduler/api/scheduler/set_max_workflows', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -362,7 +362,7 @@ export default function SchedulerDetail({NodeTable}) {
 
 
   const updateMaxProcesses = () => {
-    fetch('http://localhost:8000/plugins/workgraph/api/scheduler/set_max_processes', {
+    fetch('/plugins/scheduler/api/scheduler/set_max_processes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -786,9 +786,9 @@ export default function SchedulerDetail({NodeTable}) {
       {/* ----- member table ----- */}
       <NodeTable
         title=""
-        endpointBase={`http://localhost:8000/plugins/workgraph/api/scheduler/${name}/process`}
+        endpointBase={`/plugins/scheduler/api/scheduler/${name}/process`}
         linkPrefix="/process"
-        actionBase={`http://localhost:8000/api/process`}
+        actionBase={`/api/process`}
         config={{
           columns       : processColumns,
           buildExtraActions: extraActions,

@@ -124,9 +124,9 @@ function WorkGraphTable({NodeTable}) {
   return (
     <NodeTable
       title="WorkGraph nodes"
-      endpointBase="http://localhost:8000/plugins/workgraph/api/workgraph"
+      endpointBase="/plugins/workgraph/api/workgraph"
       linkPrefix="/workgraph"
-      actionBase={`http://localhost:8000/api/process`}
+      actionBase={`/api/process`}
       config={{
         columns       : processColumns,
         buildExtraActions: extraActions,

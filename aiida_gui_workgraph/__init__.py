@@ -9,10 +9,10 @@ THIS_DIR = pathlib.Path(__file__).parent
 static_dir = str(THIS_DIR / "static")
 
 plugin = {
-    "routers": [
-        workgraph_router,
-        scheduler_router,
-    ],
+    "routers": {
+        "workgraph": workgraph_router,
+        "scheduler": scheduler_router,
+    },
     "name": "WorkGraph",
-    "static_dir": static_dir,
+    "static_dirs": {"workgraph": static_dir},
 }

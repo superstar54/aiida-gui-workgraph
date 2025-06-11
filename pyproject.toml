@@ -24,7 +24,8 @@ classifiers = [
 ]
 
 [project.urls]
-# You might want to add more URLs here, e.g., "Homepage" = "https://example.com"
+Documentation = "https://aiida-gui-workgraph.readthedocs.io"
+Source = "https://github.com/aiidateam/aiida-gui-workgraph"
 
 [project.entry-points."aiida_gui.plugins"]
 workgraph = "aiida_gui_workgraph:plugin"
