@@ -41,8 +41,11 @@ pre-commit = [
 workgraph = "aiida_gui_workgraph:plugin"
 
 [tool.setuptools]
-packages = ["aiida_gui_workgraph"] # find_packages() equivalent
 include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["aiida_gui_workgraph", "aiida_gui_workgraph.*"]
 
 [tool.setuptools.package-data] # Corrected from [tool.uptools.package-data]
 aiida_gui_workgraph = ["static/*", "static/**/*"]
