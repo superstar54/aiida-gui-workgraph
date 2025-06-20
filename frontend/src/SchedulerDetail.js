@@ -19,7 +19,6 @@ import 'chartjs-adapter-date-fns';
 import { Line } from 'react-chartjs-2';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import { extraActions } from './ProcessTable'; // the generic table
 import { Link } from 'react-router-dom';
 
 ChartJS.register(
@@ -35,58 +34,6 @@ ChartJS.register(
 );
 
 
-
-/* pause / play / kill buttons – now with confirmation for “Kill” */
-export function extraActions(row, { actionBase, refetch, openConfirmModal }) {
-  const post = url => fetch(url, { method:'POST' }).then(() => refetch());
-
-  const buttons = [];
-
-  if (row.paused) {
-    buttons.push(
-      <Tooltip title="Resume" key="resume">
-        <IconButton color="success" onClick={() => post(`${actionBase}/play/${row.pk}`)}>
-          <PlayArrow/>
-        </IconButton>
-      </Tooltip>
-    );
-  }
-
-  if (['Running', 'Waiting'].includes(row.process_state)) {
-    if (!row.paused) {
-      buttons.push(
-        <Tooltip title="Pause" key="pause">
-          <IconButton onClick={() => post(`${actionBase}/pause/${row.pk}`)}>
-            <Pause/>
-          </IconButton>
-        </Tooltip>
-      );
-    }
-    buttons.push(
-      <Tooltip title="Kill" key="kill">
-        <IconButton
-          color="error"
-          onClick={() =>
-            openConfirmModal(
-              <p>
-                Kill&nbsp;process&nbsp;PK&nbsp;{row.pk}?<br/>
-                <b>This action is irreversible.</b>
-              </p>,
-              () =>
-                post(`${actionBase}/kill/${row.pk}`)
-                  .then(() => toast.success(`Killed PK ${row.pk}`))
-                  .catch(() => toast.error('Kill failed'))
-            )
-          }
-        >
-          <HighlightOff/>
-        </IconButton>
-      </Tooltip>
-    );
-  }
-
-  return <>{buttons}</>;
-}
 
 export const processColumns = linkPrefix => ([
   {
@@ -153,7 +100,7 @@ export const processColumns = linkPrefix => ([
     renderCell:({ value }) => value ? 'Yes' : 'No' },
 ]);
 
-export default function SchedulerDetail({NodeTable}) {
+export default function SchedulerDetail({NodeTable, extraProcessActions}) {
   const { name } = useParams();
   const [scheduler, setScheduler] = useState(null);
   const [daemon, setDaemon] = useState({"running": null});
@@ -791,7 +738,7 @@ export default function SchedulerDetail({NodeTable}) {
         actionBase={`/api/process`}
         config={{
           columns       : processColumns,
-          buildExtraActions: extraActions,
+          buildExtraActions: extraProcessActions,
           editableFields: ['label', 'description', 'priority'],
         }}
       />
