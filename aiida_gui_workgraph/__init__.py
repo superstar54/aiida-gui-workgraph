@@ -2,7 +2,7 @@ import pathlib
 from .workgraph import router as workgraph_router
 from .scheduler import router as scheduler_router
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 # static_dir points to plugin1/static
 THIS_DIR = pathlib.Path(__file__).parent
