@@ -1,6 +1,5 @@
 import pathlib
 from .workgraph import router as workgraph_router
-from .scheduler import router as scheduler_router
 
 __version__ = "0.1.1"
 
@@ -11,7 +10,6 @@ static_dir = str(THIS_DIR / "static")
 plugin = {
     "routers": {
         "workgraph": workgraph_router,
-        "scheduler": scheduler_router,
     },
     "name": "WorkGraph",
     "static_dirs": {"workgraph": static_dir},
