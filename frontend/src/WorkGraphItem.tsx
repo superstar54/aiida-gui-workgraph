@@ -1,6 +1,6 @@
 import React from 'react';
 
 function WorkGraphItem({WorkFlowItem}) {
-  return <WorkFlowItem endPoint="/plugins/workgraph/api/workgraph" />;
+  return <WorkFlowItem pathType = 'workgraph' endPoint="/plugins/workgraph/api/workgraph" />;
 }
 export default WorkGraphItem;
