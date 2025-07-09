@@ -27,14 +27,18 @@ async def read_sub_workgraph(id: int, path: str):
     e.g. if the request is /api/workgraph/123/foo/bar/baz
     then path = "foo/bar/baz"
     """
-    from aiida_workgraph.utils import workgraph_to_short_json, shallow_copy_nested_dict
+    from aiida_workgraph.utils import (
+        workgraph_to_short_json,
+        shallow_copy_nested_dict,
+        deserialize_input_values_recursively,
+    )
     from aiida.orm import load_node
 
     try:
         node = load_node(id)
         segments = path.split("/")
         ndata = node.workgraph_data["tasks"][segments[0]]
-        ndata = deserialize_unsafe(ndata)
+        deserialize_input_values_recursively(ndata["inputs"], deserialize_unsafe)
         if ndata["metadata"]["node_type"].upper() == "WORKGRAPH":
             executor = node.task_executors.get(segments[0])
             graph_data = executor["graph_data"]
@@ -45,7 +49,10 @@ async def read_sub_workgraph(id: int, path: str):
             graph_data = {"name": segments[-1], "uuid": "", "tasks": {}, "links": []}
             # copy tasks
             for child in map_info["children"]:
-                child_data = deserialize_unsafe(node.workgraph_data["tasks"][child])
+                child_data = node.workgraph_data["tasks"][child]
+                deserialize_input_values_recursively(
+                    child_data["inputs"], deserialize_unsafe
+                )
                 for prefix in map_info["prefix"]:
                     new_data = shallow_copy_nested_dict(child_data)
                     new_data["name"] = f"{prefix}_{child}"
