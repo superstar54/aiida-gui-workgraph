@@ -1,7 +1,7 @@
 import pathlib
 from .workgraph import router as workgraph_router
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 # static_dir points to plugin1/static
 THIS_DIR = pathlib.Path(__file__).parent
